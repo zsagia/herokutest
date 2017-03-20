@@ -5,26 +5,26 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { ContactDetailsComponent } from './contacts/contact-details/contact-details.component';
-import { ContactListComponent } from './contacts/contact-list/contact-list.component';
-import { ContactService } from './contacts/contact.service';
+import { BuildingDetailsComponent } from './building/building-details/building-details.component';
+import { BuildingListComponent } from './building/building-list/building-list.component';
+import { BuildingService } from './building/building.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactListComponent,
-    ContactDetailsComponent
+    BuildingListComponent,
+    BuildingDetailsComponent
   ],
   exports: [
-      ContactListComponent,
-      ContactDetailsComponent
+      BuildingListComponent,
+      BuildingDetailsComponent
     ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [ContactService],
+  providers: [BuildingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

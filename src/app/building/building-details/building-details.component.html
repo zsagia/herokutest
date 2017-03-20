@@ -1,0 +1,40 @@
+<div *ngIf="building" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="building._id">Building Details</h2>
+    <h2 *ngIf="!building._id">New Building</h2>
+  </div>
+</div>
+<div *ngIf="building" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="building-name">Name</label>
+      <input class="form-control" name="building-name" [(ngModel)]="building.name" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+      <label for="building-country">Country</label>
+      <input class="form-control" name="building-country" [(ngModel)]="building.country" placeholder="Country"/>
+    </div>
+    <div class="form-group">
+      <label for="building-type">Type</label>
+      <select class="form-control" name="building-type" [(ngModel)]="building.type" placeholder="Type">
+          <option [ngValue]="Building.TYPY_CASTLE">{{Building.TYPY_CASTLE}}</option>
+          <option [ngValue]="Building.TYPY_FORTRESS">{{Building.TYPY_FORTRESS}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="building-default-image">Default Image</label>
+      <input class="form-control" name="building-default-image" [(ngModel)]="building.defaultImage" placeholder="Image url"/>
+    </div>
+    <div class="form-group">
+      <label for="building-description">Description</label>
+      <textarea class="form-control" name="building-description" [(ngModel)]="building.description" />
+    </div>
+    <div class="form-group">
+      <label for="building-history">History</label>
+      <textarea class="form-control" name="building-history" [(ngModel)]="building.history" />
+    </div>
+    <button class="btn btn-primary" *ngIf="!building._id" (click)="createBuilding(building)">Create</button>
+    <button class="btn btn-info" *ngIf="building._id" (click)="updateBuilding(building)">Update</button>
+    <button class="btn btn-danger" *ngIf="building._id" (click)="deleteBuilding(building._id)">Delete</button>
+  </form>
+</div>
