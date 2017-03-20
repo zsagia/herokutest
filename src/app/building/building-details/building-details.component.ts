@@ -19,6 +19,9 @@ export class BuildingDetailsComponent {
   @Input()
   deleteHandler: Function;
 
+  private TYPE_CASTLE: String = Building.TYPE_CASTLE;
+  private TYPE_FORTRESS: String = Building.TYPE_FORTRESS;
+
   constructor (private buildingService: BuildingService) {}
 
   createBuilding(building: Building) {
