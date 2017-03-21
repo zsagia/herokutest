@@ -9,18 +9,4 @@ export class Building {
     public description: String;
     public history: String;
     public type: String;
-
-    constructor(
-        id: String, name: String, country: String,
-        defaultImage: String, description: String, history: String,
-        type: String) {
-
-        this._id = id;
-        this.name = name;
-        this.country = country;
-        this.defaultImage = defaultImage;
-        this.description = description;
-        this.history = history;
-        this.type = type;
-    }
 }
