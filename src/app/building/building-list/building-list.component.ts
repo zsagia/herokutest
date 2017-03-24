@@ -41,7 +41,6 @@ export class BuildingListComponent implements OnInit {
 
     createNewBuilding() {
         var building: Building = {
-            _id: '',
             name: '',
             country: '',
             defaultImage: '',
@@ -56,25 +55,30 @@ export class BuildingListComponent implements OnInit {
 
     deleteBuilding = (buildingId: String) => {
         var idx = this.getIndexOfBuilding(buildingId);
+
         if (idx !== -1) {
             this.buildings.splice(idx, 1);
             this.selectBuilding(null);
         }
+
         return this.buildings;
     }
 
     addBuilding = (building: Building) => {
         this.buildings.push(building);
         this.selectBuilding(building);
+
         return this.buildings;
     }
 
     updateBuilding = (building: Building) => {
         var idx = this.getIndexOfBuilding(building._id);
+
         if (idx !== -1) {
             this.buildings[idx] = building;
             this.selectBuilding(building);
         }
+
         return this.buildings;
     }
 }

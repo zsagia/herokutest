@@ -60,6 +60,8 @@ app.post("/api/buildings", function(req, res) {
   var newBuilding = req.body;
   newBuilding.createDate = new Date();
 
+  delete newBuilding._id;
+
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
