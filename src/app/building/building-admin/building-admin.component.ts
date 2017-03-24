@@ -5,13 +5,13 @@ import { BuildingService } from '../building.service';
 import { BuildingDetailsComponent } from '../building-details/building-details.component';
 
 @Component({
-    selector: 'building-list',
-    templateUrl: './building-list.component.html',
-    styleUrls: ['./building-list.component.css'],
+    selector: 'building-admin',
+    templateUrl: './building-admin.component.html',
+    styleUrls: ['./building-admin.component.css'],
     providers: [BuildingService]
 })
 
-export class BuildingListComponent implements OnInit {
+export class BuildingAdminComponent implements OnInit {
 
     buildings: Building[]
     selectedBuilding: Building

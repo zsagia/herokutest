@@ -6,17 +6,17 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { BuildingDetailsComponent } from './building/building-details/building-details.component';
-import { BuildingListComponent } from './building/building-list/building-list.component';
+import { BuildingAdminComponent } from './building/building-admin/building-admin.component';
 import { BuildingService } from './building/building.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BuildingListComponent,
+    BuildingAdminComponent,
     BuildingDetailsComponent
   ],
   exports: [
-      BuildingListComponent,
+      BuildingAdminComponent,
       BuildingDetailsComponent
     ],
   imports: [
