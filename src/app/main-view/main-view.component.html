@@ -1,0 +1,13 @@
+<div>
+    <carousel>
+        <slide *ngFor="let image of images">
+            <div style="background-image: url(assets/backgrounds/b4.jpg)">
+                <img [src]="image.url" [alt]="image.caption" class="slider">
+                    <div class="carousel-caption">
+                        <h3>{{image.caption}}</h3>
+                        <p>{{image.description}}</p>
+                    </div>
+            </div>
+        </slide>
+    </carousel>
+</div>

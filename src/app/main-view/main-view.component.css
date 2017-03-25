@@ -1,0 +1,22 @@
+div {
+   height: calc(100vh - 79px);
+   width: calc(100vw - 5px);
+}
+
+img.slider {
+    margin: auto;
+    background-color: #FFF;
+    border: 10px solid #EEE;
+    border-radius: 20px;
+    position: absolute;
+    width: 500px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset, 0 5px 10px #ccc;
+}
+
+.carousel-caption {
+    position: static;
+}

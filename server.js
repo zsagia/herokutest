@@ -17,28 +17,28 @@ var db;
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
 
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
+    // Save database object from the callback for reuse.
+    db = database;
+    console.log("Database connection ready");
 
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
+    // Initialize the app.
+    var server = app.listen(process.env.PORT || 8080, function () {
+        var port = server.address().port;
+        console.log("App now running on port", port);
+    });
 });
 
 // BUILDINGS API ROUTES BELOW
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+    console.log("ERROR: " + reason);
+    res.status(code || 500).json({ "error": message });
 }
 
 /*  "/api/buildings"
@@ -46,33 +46,33 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new building
  */
 
-app.get("/api/buildings", function(req, res) {
-  db.collection(BUILDINGS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get buildings.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
+app.get("/api/buildings", function (req, res) {
+    db.collection(BUILDINGS_COLLECTION).find({}).toArray(function (err, docs) {
+        if (err) {
+            handleError(res, err.message, "Failed to get buildings.");
+        } else {
+            res.status(200).json(docs);
+        }
+    });
 });
 
-app.post("/api/buildings", function(req, res) {
-  var newBuilding = req.body;
-  newBuilding.createDate = new Date();
+app.post("/api/buildings", function (req, res) {
+    var newBuilding = req.body;
+    newBuilding.createDate = new Date();
 
-  delete newBuilding._id;
+    delete newBuilding._id;
 
-  if (!req.body.name) {
-    handleError(res, "Invalid user input", "Must provide a name.", 400);
-  }
-
-  db.collection(BUILDINGS_COLLECTION).insertOne(newBuilding, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new building.");
-    } else {
-      res.status(201).json(doc.ops[0]);
+    if (!req.body.name) {
+        handleError(res, "Invalid user input", "Must provide a name.", 400);
     }
-  });
+
+    db.collection(BUILDINGS_COLLECTION).insertOne(newBuilding, function (err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to create new building.");
+        } else {
+            res.status(201).json(doc.ops[0]);
+        }
+    });
 });
 
 /*  "/api/buildings/:id"
@@ -81,36 +81,40 @@ app.post("/api/buildings", function(req, res) {
  *    DELETE: deletes building by id
  */
 
-app.get("/api/buildings/:id", function(req, res) {
-  db.collection(BUILDINGS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get building");
-    } else {
-      res.status(200).json(doc);
-    }
-  });
+app.get("/api/buildings/:id", function (req, res) {
+    db.collection(BUILDINGS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function (err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to get building");
+        } else {
+            res.status(200).json(doc);
+        }
+    });
 });
 
-app.put("/api/buildings/:id", function(req, res) {
-  var updateDoc = req.body;
-  delete updateDoc._id;
+app.put("/api/buildings/:id", function (req, res) {
+    var updateDoc = req.body;
+    delete updateDoc._id;
 
-  db.collection(BUILDINGS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to update building");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
+    db.collection(BUILDINGS_COLLECTION).updateOne({ _id: new ObjectID(req.params.id) }, updateDoc, function (err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to update building");
+        } else {
+            updateDoc._id = req.params.id;
+            res.status(200).json(updateDoc);
+        }
+    });
 });
 
-app.delete("/api/buildings/:id", function(req, res) {
-  db.collection(BUILDINGS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-    if (err) {
-      handleError(res, err.message, "Failed to delete building");
-    } else {
-      res.status(200).json(req.params.id);
-    }
-  });
+app.delete("/api/buildings/:id", function (req, res) {
+    db.collection(BUILDINGS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.id) }, function (err, result) {
+        if (err) {
+            handleError(res, err.message, "Failed to delete building");
+        } else {
+            res.status(200).json(req.params.id);
+        }
+    });
 });
+
+var expressFallback = require('express-history-api-fallback');
+
+app.use(expressFallback('index.html', { root: distDir }));
