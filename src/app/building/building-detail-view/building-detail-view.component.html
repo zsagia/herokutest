@@ -1,0 +1,24 @@
+<article *ngIf="building" class="col-md-8">
+    <button (click)="goBack()">Back</button>
+    <h2>
+        {{building.name}}
+    </h2>
+    <figure>
+        <img src="{{building.defaultImage}}">
+        <figcaption>
+            Caption
+        </figcaption>
+    </figure>
+    <section>
+        <h3>Description</h3>
+        <p>
+            {{building.description}}
+        </p>
+    </section>
+    <section>
+        <h3>History</h3>
+        <p>
+        {{building.history}}  
+        </p>
+    </section>
+</article>

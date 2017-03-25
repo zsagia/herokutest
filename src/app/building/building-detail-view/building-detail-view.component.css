@@ -1,0 +1,7 @@
+:host article{
+    margin: auto;
+}
+
+:host .col-md-8 {
+    float: none;
+}
