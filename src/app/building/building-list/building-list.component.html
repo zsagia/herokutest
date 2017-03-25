@@ -1,0 +1,8 @@
+
+<building-view
+    *ngFor="let building of buildings"
+    [building]=building
+    class="col-sm-6 col-md-3"
+    (typeFilter)="handleTypeFilter($event)"
+    (countryFilter)="handleCountryFilter($event)">
+</building-view>
