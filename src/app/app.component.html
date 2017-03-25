@@ -1,3 +1,12 @@
-<div class="container">
-  <building-admin></building-admin>
+<div>
+    <nav class="navbar navbar-default">
+        <img src='assets/fortress.png' width="40" style="float:left">
+        <a class="navbar-brand" href="#">{{title}}</a>
+        <ul class="nav navbar-nav">
+            <li><a [routerLink]="['/buildinglist']">List</a></li>
+            <li><a [routerLink]="['/buildingadmin']">Admin</a></li>
+        </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
 </div>

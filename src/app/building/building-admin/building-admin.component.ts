@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Building } from '../building';
-import { BuildingService } from '../building.service';
+import { BuildingServiceBase } from '../building-service/building.service.base';
 import { BuildingDetailsComponent } from '../building-details/building-details.component';
 
 @Component({
     selector: 'building-admin',
     templateUrl: './building-admin.component.html',
-    styleUrls: ['./building-admin.component.css'],
-    providers: [BuildingService]
+    styleUrls: ['./building-admin.component.css']
 })
 
 export class BuildingAdminComponent implements OnInit {
@@ -16,7 +15,7 @@ export class BuildingAdminComponent implements OnInit {
     buildings: Building[]
     selectedBuilding: Building
 
-    constructor(private buildingService: BuildingService) { }
+    constructor(private buildingService: BuildingServiceBase) { }
 
     ngOnInit() {
         this.buildingService

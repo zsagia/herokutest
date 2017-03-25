@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Building } from '../building';
-import { BuildingService } from '../building.service';
+import { BuildingServiceBase } from '../building-service/building.service.base';
 
 @Component({
     selector: 'building-details',
@@ -39,7 +39,7 @@ export class BuildingDetailsComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private buildingService: BuildingService
+        private buildingService: BuildingServiceBase
     ) { }
 
     ngOnInit() {
