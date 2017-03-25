@@ -1,0 +1,12 @@
+
+<div class="building-card thumbnail">
+    <img src="{{building.defaultImage}}" class="main">
+    <div class="type">
+        <span><img [src] = "iconUrl" width="60" height="60" (click)="emitTypeFilter()" title="{{building.type}}"></span>
+    </div>
+     <header class="caption">
+        <h3>{{building.name}}</h3>
+        <h4><a (click)="emitCountryFilter()">{{building.country}}</a></h4>
+        <p><a class="btn btn-primary" role = "button" (click) = "goToDetail()">Details</a></p>
+    </header>
+</div>
