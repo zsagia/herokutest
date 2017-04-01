@@ -18,6 +18,10 @@ import { ImageServiceImpl } from './image/image-service/image.service.impl';
 import { MainViewComponent } from './main-view/main-view.component';
 
 import { CarouselModule } from 'ng2-bootstrap/carousel';
+import { UserAdminComponent } from './user/admin/user-admin.component';
+import { UserEditComponent } from './user/edit/user-edit.component';
+import { UserServiceBase } from './user/service/user.service.base';
+import { UserServiceImpl } from './user/service/user.service.impl';
 
 @NgModule({
     declarations: [
@@ -27,7 +31,9 @@ import { CarouselModule } from 'ng2-bootstrap/carousel';
         BuildingDetailViewComponent,
         BuildingListComponent,
         BuildingViewComponent,
-        MainViewComponent
+        MainViewComponent,
+        UserAdminComponent,
+        UserEditComponent
     ],
     exports: [
         BuildingAdminComponent,
@@ -46,6 +52,9 @@ import { CarouselModule } from 'ng2-bootstrap/carousel';
         },
         {
             provide: ImageServiceBase, useClass: ImageServiceImpl
+        },
+        {
+            provide: UserServiceBase, useClass: UserServiceImpl
         }
     ],
     bootstrap: [AppComponent]

@@ -1,0 +1,47 @@
+<div *ngIf="user" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="user._id">User Details</h2>
+    <h2 *ngIf="!user._id">New User</h2>
+  </div>
+</div>
+
+<div *ngIf="user" class="row">
+  <form class="col-md-12" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+    <input formControlName="_id"  [(ngModel)]="user._id" type="hidden" />
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+
+      <input class="form-control" formControlName="firstName" [(ngModel)]="user.firstName" placeholder="First Name" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+
+      <input class="form-control" formControlName="lastName" [(ngModel)]="user.lastName" placeholder="Last Name" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label for="userName">User Name</label>
+
+      <input class="form-control" formControlName="userName" [(ngModel)]="user.userName" placeholder="User Name" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+
+      <input class="form-control" formControlName="email" [(ngModel)]="user.email" type="text"/>
+    </div>
+
+    <div class="form-group">
+      <label for="Password">Password</label>
+
+      <textarea class="form-control" formControlName="password" [(ngModel)]="user.password">
+      </textarea>
+    </div>
+
+    <button class="btn btn-primary" *ngIf="!user._id" [disabled]="submitted || !userForm.valid" type="submit">Create</button>
+    <button class="btn btn-info" *ngIf="user._id" [disabled]="submitted || !userForm.valid" type="submit">Update</button>
+    <button class="btn btn-danger" *ngIf="user._id" (click)="deleteUser(user._id)">Delete</button>
+  </form>
+</div>
