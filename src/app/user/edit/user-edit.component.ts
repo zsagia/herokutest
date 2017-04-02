@@ -14,15 +14,31 @@ export class UserEditComponent implements OnInit {
     userForm: FormGroup;
 
     private _user: User;
-
     get user(): User {
         return this._user;
     }
-
     @Input('user')
     set user(user: User) {
         this._user = user;
         this.submitted = false;
+    }
+
+    private _titles: Object = {
+        input_firstName: 'First Name',
+        input_lastName: 'Last Name',
+        input_userName: 'User Name',
+        input_email: 'Email',
+        input_password: 'Password',
+        button_create: 'Create',
+        button_update: 'Update',
+        button_delete: 'Delete'
+    };
+    get titles(): Object {
+        return this._titles;
+    }
+    @Input('titles')
+    set titles(titles: Object) {
+        this._titles = Object.assign(this._titles, titles);
     }
 
     @Input()

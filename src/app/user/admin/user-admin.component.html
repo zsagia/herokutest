@@ -6,7 +6,7 @@
         *ngFor="let user of users"
         (click)="selectUser(user)"
         [class.active]="user === selectedUser">
-        {{user.name}}
+        {{user.userName}}
       </li>
     </ul>
     <button class="btn btn-warning" (click)="createNewUser()">New</button>

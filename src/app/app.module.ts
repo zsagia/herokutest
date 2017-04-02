@@ -22,6 +22,7 @@ import { UserAdminComponent } from './user/admin/user-admin.component';
 import { UserEditComponent } from './user/edit/user-edit.component';
 import { UserServiceBase } from './user/service/user.service.base';
 import { UserServiceImpl } from './user/service/user.service.impl';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { UserServiceImpl } from './user/service/user.service.impl';
         BuildingViewComponent,
         MainViewComponent,
         UserAdminComponent,
-        UserEditComponent
+        UserEditComponent,
+        SignUpComponent
     ],
     exports: [
         BuildingAdminComponent,

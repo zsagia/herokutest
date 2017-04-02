@@ -28,6 +28,8 @@ export class UserServiceImpl extends UserServiceBase {
 
     // post("/api/users")
     createUser(newUser: User): Promise<User> {
+        newUser.password = window.btoa(newUser.password.toString());
+
         return this.http.post(this.usersUrl, newUser)
             .toPromise()
             .then(response => response.json() as User)
