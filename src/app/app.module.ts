@@ -23,6 +23,8 @@ import { UserEditComponent } from './user/edit/user-edit.component';
 import { UserServiceBase } from './user/service/user.service.base';
 import { UserServiceImpl } from './user/service/user.service.impl';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { AuthenticationService } from './log-in/service/authentication.service';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
         MainViewComponent,
         UserAdminComponent,
         UserEditComponent,
-        SignUpComponent
+        SignUpComponent,
+        LogInComponent
     ],
     exports: [
         BuildingAdminComponent,
@@ -57,7 +60,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
         },
         {
             provide: UserServiceBase, useClass: UserServiceImpl
-        }
+        },
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })

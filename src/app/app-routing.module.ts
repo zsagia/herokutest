@@ -6,6 +6,7 @@ import { MainViewComponent } from './main-view/main-view.component';
 import { BuildingAdminComponent } from './building/building-admin/building-admin.component';
 import { UserAdminComponent } from './user/admin/user-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mainview', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'buildinglist', component: BuildingListComponent },
   { path: 'buildingadmin', component: BuildingAdminComponent },
   { path: 'useradmin', component: UserAdminComponent },
+  { path: 'login', component: LogInComponent },
   { path: 'signup', component: SignUpComponent }
 ]
 

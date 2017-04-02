@@ -1,0 +1,17 @@
+<div class="row">
+  <form class="col-sm-4 col-sm-offset-4" [formGroup]="authenticationForm" (ngSubmit)="onSubmit(authenticationForm.value)">
+    <div class="form-group">
+      <label for="email">{{titles.input_email}}</label>
+
+      <input class="form-control" formControlName="email" type="email"/>
+    </div>
+
+    <div class="form-group">
+      <label for="Password">{{titles.input_password}}</label>
+
+      <input class="form-control" formControlName="password" type="password"/>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="submitted || !authenticationForm.valid" type="submit">{{titles.button_login}}</button>
+  </form>
+</div>
