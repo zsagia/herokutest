@@ -179,6 +179,22 @@ app.delete("/api/users/:id", function (req, res) {
     });
 });
 
+app.post("/api/authenticate", function (req, res) {
+    var credentials = req.body;
+
+    if (!credentials.email || !credentials.password) {
+        handleError(res, "Invalid user input", "Must provide valid credentials.", 400);
+    }
+
+    db.collection(USERS_COLLECTION).findOne(credentials, function (err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to login user.");
+        } else {
+            res.status(201).json(doc);
+        }
+    });
+});
+
 var expressFallback = require('express-history-api-fallback');
 
 app.use(expressFallback('index.html', { root: distDir }));
