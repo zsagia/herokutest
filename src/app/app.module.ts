@@ -25,6 +25,7 @@ import { UserServiceImpl } from './user/service/user.service.impl';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { AuthenticationService } from './log-in/service/authentication.service';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { AuthenticationService } from './log-in/service/authentication.service';
         UserAdminComponent,
         UserEditComponent,
         SignUpComponent,
-        LogInComponent
+        LogInComponent,
+        AdminComponent
     ],
     exports: [
         BuildingAdminComponent,

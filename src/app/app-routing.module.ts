@@ -13,9 +13,13 @@ const routes: Routes = [
     { path: '', redirectTo: '/mainview', pathMatch: 'full' },
     { path: 'mainview', component: MainViewComponent },
     { path: 'buildinglist', component: BuildingListComponent },
-    { path: 'admin', component: AdminComponent },
-    { path: 'buildingadmin', component: BuildingAdminComponent },
-    { path: 'useradmin', component: UserAdminComponent },
+    { path: 'admin', component: AdminComponent,
+        children: [
+            { path: '', redirectTo: 'buildingadmin', pathMatch: 'full' },
+            { path: 'buildingadmin', component: BuildingAdminComponent },
+            { path: 'useradmin', component: UserAdminComponent }
+        ] 
+    },
     { path: 'login', component: LogInComponent },
     { path: 'signup', component: SignUpComponent }
 ]
