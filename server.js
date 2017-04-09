@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
+var jwt = require('jsonwebtoken');
 var ObjectID = mongodb.ObjectID;
 
 var BUILDINGS_COLLECTION = "buildings";
@@ -179,18 +180,40 @@ app.delete("/api/users/:id", function (req, res) {
     });
 });
 
-app.post("/api/authenticate", function (req, res) {
-    var credentials = req.body;
+app.post("/api/authenticate", function (request, response) {
+    var body = request.body;
 
-    if (!credentials.email || !credentials.password) {
-        handleError(res, "Invalid user input", "Must provide valid credentials.", 400);
+    if (!body.email || !body.password) {
+        handleError(response, "Invalid user input", "Must provide valid credentials.", 400);
     }
 
-    db.collection(USERS_COLLECTION).findOne(credentials, function (err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to login user.");
+    var credential = {
+        email: body.email
+    };
+
+    db.collection(USERS_COLLECTION).findOne(credential, function (error, user) {
+        if (error) {
+            handleError(response, error.message, "Failed to login user.");
+        } else if (!user) {
+            handleError(response, error.message, "User not found.");
+        } else if (user.password != body.password) {
+            handleError(response, error.message, "Wrong password.");
         } else {
-            res.status(201).json(doc);
+            var token = jwt.sign(
+                user,
+                'asDFghJK1234',
+                {
+                    expiresIn: 60*60*24
+                }
+            );
+
+            response.status(201).json(
+                {
+                    success: true,
+                    user: user,
+                    token: token
+                }
+            );
         }
     });
 });
