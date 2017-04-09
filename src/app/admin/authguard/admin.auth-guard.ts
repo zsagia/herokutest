@@ -6,9 +6,9 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private router: Router) { }
  
     canActivate() {
-        var userData = JSON.parse(localStorage.getItem('currentUserData'));
+        var userData = JSON.parse(localStorage.getItem('currentUser'));
     
-        if (userData && userData.user.roles.admin) {
+        if (userData && userData.roles.admin) {
             return true;
         }
  
