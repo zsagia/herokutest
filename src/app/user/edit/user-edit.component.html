@@ -8,6 +8,7 @@
 <div *ngIf="user" class="row">
   <form class="col-md-12" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
     <input formControlName="_id"  [(ngModel)]="user._id" type="hidden" />
+    <input formControlName="roles"  [(ngModel)]="user.roles" type="hidden" />
 
     <div class="form-group">
       <label for="firstName">{{titles.input_firstName}}</label>

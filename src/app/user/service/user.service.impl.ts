@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { AuthHttp } from 'angular2-jwt';
+
 import { User } from '../model/user.model';
 import { UserServiceBase } from './user.service.base';
 
@@ -8,7 +10,7 @@ import { UserServiceBase } from './user.service.base';
 export class UserServiceImpl extends UserServiceBase {
     private usersUrl = '/api/users';
 
-    constructor(private http: Http) {
+    constructor(private authHttp: AuthHttp) {
         super();
     }
 
@@ -20,7 +22,7 @@ export class UserServiceImpl extends UserServiceBase {
 
     // get("/api/users")
     getUsers(): Promise<Array<User>> {
-        return this.http.get(this.usersUrl)
+        return this.authHttp.get(this.usersUrl)
             .toPromise()
             .then(response => response.json() as User[])
             .catch(this.handleError);
@@ -30,7 +32,7 @@ export class UserServiceImpl extends UserServiceBase {
     createUser(newUser: User): Promise<User> {
         newUser.password = window.btoa(newUser.password.toString());
 
-        return this.http.post(this.usersUrl, newUser)
+        return this.authHttp.post(this.usersUrl, newUser)
             .toPromise()
             .then(response => response.json() as User)
             .catch(this.handleError);
@@ -38,7 +40,7 @@ export class UserServiceImpl extends UserServiceBase {
 
     // delete("/api/users/:id")
     deleteUser(delUserId: String): Promise<String> {
-         return this.http.delete(this.usersUrl + '/' + delUserId)
+         return this.authHttp.delete(this.usersUrl + '/' + delUserId)
             .toPromise()
             .then(response => response.json() as String)
             .catch(this.handleError);
@@ -48,7 +50,7 @@ export class UserServiceImpl extends UserServiceBase {
     updateUser(putUser: User): Promise<User> {
         var putUrl = this.usersUrl + '/' + putUser._id;
 
-        return this.http.put(putUrl, putUser)
+        return this.authHttp.put(putUrl, putUser)
             .toPromise()
             .then(response => response.json() as User)
             .catch(this.handleError);

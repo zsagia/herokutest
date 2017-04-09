@@ -43,7 +43,8 @@ export class UserAdminComponent implements OnInit {
             lastName: '',
             userName: '',
             email: '',
-            password: ''
+            password: '',
+            roles: {}
         };
 
         this.selectUser(user);

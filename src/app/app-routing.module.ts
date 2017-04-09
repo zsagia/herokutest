@@ -8,6 +8,7 @@ import { UserAdminComponent } from './user/admin/user-admin.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
 
 const routes: Routes = [
     { path: '', redirectTo: '/mainview', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'buildingadmin', pathMatch: 'full' },
             { path: 'buildingadmin', component: BuildingAdminComponent },
             { path: 'useradmin', component: UserAdminComponent }
-        ] 
+        ],
+        canActivate: [AdminAuthGuard],
     },
     { path: 'login', component: LogInComponent },
     { path: 'signup', component: SignUpComponent }

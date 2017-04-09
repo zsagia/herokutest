@@ -30,7 +30,8 @@ export class SignUpComponent implements OnInit {
             lastName: '',
             userName: '',
             email: '',
-            password: ''
+            password: '',
+            roles: {}
         };
 
         this.user = user;

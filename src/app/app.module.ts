@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+import { AuthModule } from './auth/auth.module';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,6 +30,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { AuthenticationService } from './log-in/service/authentication.service';
 import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
 
 @NgModule({
     declarations: [
@@ -44,9 +49,11 @@ import { AdminComponent } from './admin/admin.component';
     ],
     exports: [
         BuildingAdminComponent,
-        BuildingDetailsComponent
+        BuildingDetailsComponent,
+        
     ],
     imports: [
+        AuthModule,
         AppRoutingModule,
         BrowserModule,
         ReactiveFormsModule,
@@ -63,8 +70,10 @@ import { AdminComponent } from './admin/admin.component';
         {
             provide: UserServiceBase, useClass: UserServiceImpl
         },
-        AuthenticationService
+        AuthenticationService,
+        AdminAuthGuard
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

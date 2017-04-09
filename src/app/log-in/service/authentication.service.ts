@@ -11,16 +11,21 @@ export class AuthenticationService {
         return this.http.post('/api/authenticate', credentials)
             .toPromise()
             .then((response: Response) => {
-                let user = response.json();
+                let data = response.json();
 
-                if (user && user.token) {
-                     localStorage.setItem('currentUser', JSON.stringify(user));
+                if (data && data.user) {
+                     localStorage.setItem('currentUser', JSON.stringify(data.user));
+                }
+
+                 if (data && data.token) {
+                     localStorage.setItem('id_token', JSON.stringify(data.token));
                 }
             });
     }
 
     logout() {
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('id_token');
     }
 }
 
