@@ -9,6 +9,7 @@ import { BuildingServiceBase } from './building.service.base';
 @Injectable()
 export class BuildingServiceImpl extends BuildingServiceBase {
     private buildingsUrl = '/api/buildings';
+    private privateBuildingsUrl = '/api/private/buildings';
 
     constructor(private http: Http) {
         super();
@@ -21,7 +22,7 @@ export class BuildingServiceImpl extends BuildingServiceBase {
 
      // get("/api/buildings")
     getBuildings(): Promise<Building[]> {
-        return this.http.get(this.buildingsUrl)
+        return this.http.get(this.privateBuildingsUrl)
             .toPromise()
             .then(response => response.json() as Building[])
             .catch(this.handleError);
@@ -29,7 +30,7 @@ export class BuildingServiceImpl extends BuildingServiceBase {
 
     // post("/api/buildings")
     createBuilding(newBuilding: Building): Promise<Building> {
-        return this.http.post(this.buildingsUrl, newBuilding)
+        return this.http.post(this.privateBuildingsUrl, newBuilding)
             .toPromise()
             .then(response => response.json() as Building)
             .catch(this.handleError);
@@ -37,7 +38,7 @@ export class BuildingServiceImpl extends BuildingServiceBase {
 
     // delete("/api/buildings/:id")
     deleteBuilding(delBuildingId: String): Promise<String> {
-        return this.http.delete(this.buildingsUrl + '/' + delBuildingId)
+        return this.http.delete(this.privateBuildingsUrl + '/' + delBuildingId)
             .toPromise()
             .then(response => response.json() as String)
             .catch(this.handleError);
@@ -45,7 +46,7 @@ export class BuildingServiceImpl extends BuildingServiceBase {
 
     // put("/api/buildings/:id")
     updateBuilding(putBuilding: Building): Promise<Building> {
-        var putUrl = this.buildingsUrl + '/' + putBuilding._id;
+        var putUrl = this.privateBuildingsUrl + '/' + putBuilding._id;
         return this.http.put(putUrl, putBuilding)
             .toPromise()
             .then(response => response.json() as Building)

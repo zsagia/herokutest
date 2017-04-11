@@ -11,4 +11,5 @@ export abstract class UserServiceBase extends ServiceBase implements UserService
     abstract createUser(newUser: User): Promise<User>;
     abstract deleteUser(delUserId: String): Promise<String>;
     abstract updateUser(putUser: User): Promise<User>;
+    abstract registerUser(newUser: User): Promise<User>;
 }

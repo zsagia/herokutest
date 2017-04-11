@@ -9,6 +9,7 @@ import { UserServiceBase } from './user.service.base';
 @Injectable()
 export class UserServiceImpl extends UserServiceBase {
     private usersUrl = '/api/users';
+    private privateUsersUrl = '/api/private/users';
 
     constructor(private authHttp: AuthHttp) {
         super();
@@ -22,7 +23,7 @@ export class UserServiceImpl extends UserServiceBase {
 
     // get("/api/users")
     getUsers(): Promise<Array<User>> {
-        return this.authHttp.get(this.usersUrl)
+        return this.authHttp.get(this.privateUsersUrl)
             .toPromise()
             .then(response => response.json() as User[])
             .catch(this.handleError);
@@ -32,7 +33,7 @@ export class UserServiceImpl extends UserServiceBase {
     createUser(newUser: User): Promise<User> {
         newUser.password = window.btoa(newUser.password.toString());
 
-        return this.authHttp.post(this.usersUrl, newUser)
+        return this.authHttp.post(this.privateUsersUrl, newUser)
             .toPromise()
             .then(response => response.json() as User)
             .catch(this.handleError);
@@ -40,7 +41,7 @@ export class UserServiceImpl extends UserServiceBase {
 
     // delete("/api/users/:id")
     deleteUser(delUserId: String): Promise<String> {
-         return this.authHttp.delete(this.usersUrl + '/' + delUserId)
+         return this.authHttp.delete(this.privateUsersUrl + '/' + delUserId)
             .toPromise()
             .then(response => response.json() as String)
             .catch(this.handleError);
@@ -48,9 +49,19 @@ export class UserServiceImpl extends UserServiceBase {
 
     // put("/api/users/:id")
     updateUser(putUser: User): Promise<User> {
-        var putUrl = this.usersUrl + '/' + putUser._id;
+        var putUrl = this.privateUsersUrl + '/' + putUser._id;
 
         return this.authHttp.put(putUrl, putUser)
+            .toPromise()
+            .then(response => response.json() as User)
+            .catch(this.handleError);
+    }
+
+    // post("/api/users")
+    registerUser(newUser: User): Promise<User> {
+        newUser.password = window.btoa(newUser.password.toString());
+
+        return this.authHttp.post(this.usersUrl, newUser)
             .toPromise()
             .then(response => response.json() as User)
             .catch(this.handleError);

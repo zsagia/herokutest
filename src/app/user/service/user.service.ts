@@ -6,4 +6,5 @@ export interface UserService {
     createUser(newUser: User): Promise<User>;
     deleteUser(delUserId: String): Promise<String>;
     updateUser(putUser: User): Promise<User>;
+    registerUser(newUser: User): Promise<User>;
 }
