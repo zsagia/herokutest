@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
 
@@ -11,9 +12,17 @@ import { PermissionChecker } from './permission-checker/permission.checker';
 })
 
 export class AppComponent {
-    title = 'ZsBuildings';
+    title: string = 'ZsBuildings';
+    returnUrl: string;
 
-    constructor(private notificationsService: NotificationsService) {
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private notificationsService: NotificationsService) {
+    }
+
+    ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     isAdmin(): boolean {
@@ -27,6 +36,8 @@ export class AppComponent {
     signOut(): void {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('id_token');
+
+        this.router.navigate([this.returnUrl]);
 
         this.notificationsService.info('Success', 'User is signed out.');
     }
