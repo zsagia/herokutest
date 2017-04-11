@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from '../user/model/user.model';
 import { UserServiceBase } from '../user/service/user.service.base';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
     selector: 'sign-up',
@@ -16,7 +17,8 @@ export class SignUpComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private userService: UserServiceBase) {
+        private userService: UserServiceBase,
+        private notificationsService: NotificationsService) {
 
     }
 
@@ -39,18 +41,16 @@ export class SignUpComponent implements OnInit {
 
     register() {
         this.loading = true;
-        this.userService.createUser(this.user)
+        this.userService.registerUser(this.user)
             .then(
             data => {
+                this.notificationsService.info('Success', 'User is registered.');
                 this.router.navigate([this.loginPath]);
             },
             error => {
+                this.notificationsService.error(error.statusText, JSON.parse(error._body).error);
                 this.loading = false;
             });
-    }
-
-    addUser() {
-        
     }
 
 }

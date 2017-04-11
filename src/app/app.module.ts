@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AuthModule } from './auth/auth.module';
 
@@ -58,7 +59,8 @@ import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
         BrowserModule,
         ReactiveFormsModule,
         HttpModule,
-        CarouselModule.forRoot()
+        CarouselModule.forRoot(),
+        SimpleNotificationsModule.forRoot()
     ],
     providers: [
         {

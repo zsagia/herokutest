@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+
+import { NotificationsService } from 'angular2-notifications';
+
 import { PermissionChecker } from './permission-checker/permission.checker';
 
 @Component({
@@ -9,6 +12,9 @@ import { PermissionChecker } from './permission-checker/permission.checker';
 
 export class AppComponent {
     title = 'ZsBuildings';
+
+    constructor(private notificationsService: NotificationsService) {
+    }
 
     isAdmin(): boolean {
         return PermissionChecker.isAdmin();
@@ -21,5 +27,7 @@ export class AppComponent {
     signOut(): void {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('id_token');
+
+        this.notificationsService.info('Success', 'User is signed out.');
     }
 }

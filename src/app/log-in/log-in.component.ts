@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './service/authentication.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
     selector: 'app-log-in',
@@ -31,7 +32,8 @@ export class LogInComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private formBuilder: FormBuilder,
-        private authenticationService: AuthenticationService) { }
+        private authenticationService: AuthenticationService,
+        private notificationsService: NotificationsService) { }
 
     ngOnInit() {
         this.authenticationForm = this.formBuilder.group({
@@ -48,10 +50,12 @@ export class LogInComponent implements OnInit {
         this.authenticationService.login(credentials['email'], credentials['password'])
             .then(
             data => {
+                this.notificationsService.info('Success', 'User is logged in.');
                 this.router.navigate([this.returnUrl]);
             },
             error => {
-
+                this.submitted = false;
+                this.notificationsService.error(error.statusText, JSON.parse(error._body).error);
             });
     }
 
@@ -59,7 +63,6 @@ export class LogInComponent implements OnInit {
         this.submitted = true;
 
         this.login(credentials);
-
     }
 
 }
