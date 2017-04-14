@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Image } from '../image.model';
+import { Image } from '../model/image.model';
 import { ImageService } from './image.service';
 
 @Injectable()
