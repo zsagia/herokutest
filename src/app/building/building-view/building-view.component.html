@@ -1,6 +1,6 @@
 <div class="building-card thumbnail">
     <cl-image public-id="{{building.defaultImage}}" class="main" title="{{building.type}}" style="width:100%">
-        <cl-transformation crop="fill"></cl-transformation>
+        <cl-transformation width="630" height="420" crop="fill"></cl-transformation>
     </cl-image>
     <div class="type">
         <span><img [src] = "iconUrl" width="60" height="60" (click)="emitTypeFilter()" title="{{building.type}}"></span>
