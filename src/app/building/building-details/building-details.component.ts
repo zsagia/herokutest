@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+import { Cloudinary } from '@cloudinary/angular';
+
 import { Building } from '../building';
 import { BuildingServiceBase } from '../building-service/building.service.base';
 
@@ -34,12 +37,15 @@ export class BuildingDetailsComponent implements OnInit {
 
     submitted: boolean = false;
 
+    private uploader: FileUploader;
+
     private TYPE_CASTLE: String = Building.TYPE_CASTLE;
     private TYPE_FORTRESS: String = Building.TYPE_FORTRESS;
 
     constructor(
         private formBuilder: FormBuilder,
-        private buildingService: BuildingServiceBase
+        private buildingService: BuildingServiceBase,
+        private cloudinary: Cloudinary,
     ) { }
 
     ngOnInit() {
@@ -52,6 +58,33 @@ export class BuildingDetailsComponent implements OnInit {
             description: '',
             history: ''
         });
+
+        const uploaderOptions: FileUploaderOptions = {
+            url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/upload`,
+            autoUpload: true,
+            isHTML5: true,
+            removeAfterUpload: true,
+            headers: [
+                {
+                    name: 'X-Requested-With',
+                    value: 'XMLHttpRequest'
+                }
+            ]
+        };
+
+        this.uploader = new FileUploader(uploaderOptions);
+
+        this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+            form.append('upload_preset', this.cloudinary.config().upload_preset);
+
+            fileItem.withCredentials = false;
+            return { fileItem, form };
+        };
+
+        this.uploader.onCompleteItem =
+            (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
+                this.onUploadedItem(item, response, status, headers);
+            }
     }
 
     createBuilding(building: Building) {
@@ -82,4 +115,11 @@ export class BuildingDetailsComponent implements OnInit {
             this.createBuilding(building);
         }
     }
+
+    onUploadedItem(item: any, response: string, status: number, headers: ParsedResponseHeaders) {
+        let image = JSON.parse(response);
+
+        this._building.defaultImage = image.public_id;
+    }
+            
 }

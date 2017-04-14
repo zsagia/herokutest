@@ -33,7 +33,13 @@
     <div class="form-group">
       <label for="defaultImage">Default Image</label>
 
-      <input class="form-control" formControlName="defaultImage" [(ngModel)]="building.defaultImage" type="url"/>
+      <input class="form-control" formControlName="defaultImage" [(ngModel)]="building.defaultImage" type="text"/>
+      
+      <div class="upload_button_holder">
+        <label class="upload_button" for="fileupload">Upload</label>
+            <input type="file" id="fileupload" #fileInput ng2FileSelect [uploader]="uploader" (change)="fileInput.value=''"
+                 />
+            </div>
     </div>
 
     <div class="form-group">
