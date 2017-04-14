@@ -6,6 +6,10 @@ import { HttpModule } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
+import * as Cloudinary from 'cloudinary-core'
+import { CloudinaryModule, CloudinaryConfiguration, provideCloudinary } from '@cloudinary/angular';
+import { FileSelectDirective } from 'ng2-file-upload';
+
 import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
@@ -32,6 +36,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { AuthenticationService } from './log-in/service/authentication.service';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
+import { ImageComponent } from './image/image.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +51,9 @@ import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
         UserEditComponent,
         SignUpComponent,
         LogInComponent,
-        AdminComponent
+        AdminComponent,
+        ImageComponent,
+        FileSelectDirective
     ],
     exports: [
         BuildingAdminComponent,
@@ -60,7 +67,8 @@ import { AdminAuthGuard } from './admin/authguard/admin.auth-guard';
         ReactiveFormsModule,
         HttpModule,
         CarouselModule.forRoot(),
-        SimpleNotificationsModule.forRoot()
+        SimpleNotificationsModule.forRoot(),
+        CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'zsagia', upload_preset: 'vcj9lomh'}),
     ],
     providers: [
         {
