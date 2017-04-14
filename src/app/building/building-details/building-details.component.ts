@@ -32,6 +32,8 @@ export class BuildingDetailsComponent implements OnInit {
     updateHandler: Function;
     @Input()
     deleteHandler: Function;
+    @Input()
+    updateDefaultImageHandler: Function;
 
     buildingForm: FormGroup;
 
@@ -45,7 +47,7 @@ export class BuildingDetailsComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private buildingService: BuildingServiceBase,
-        private cloudinary: Cloudinary,
+        private cloudinary: Cloudinary
     ) { }
 
     ngOnInit() {
@@ -78,13 +80,13 @@ export class BuildingDetailsComponent implements OnInit {
             form.append('upload_preset', this.cloudinary.config().upload_preset);
 
             fileItem.withCredentials = false;
+
             return { fileItem, form };
         };
 
-        this.uploader.onCompleteItem =
-            (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
-                this.onUploadedItem(item, response, status, headers);
-            }
+        this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
+            this.updateDefaultImageHandler(this._building, response, status);
+        }
     }
 
     createBuilding(building: Building) {
@@ -114,12 +116,6 @@ export class BuildingDetailsComponent implements OnInit {
         else {
             this.createBuilding(building);
         }
-    }
-
-    onUploadedItem(item: any, response: string, status: number, headers: ParsedResponseHeaders) {
-        let image = JSON.parse(response);
-
-        this._building.defaultImage = image.public_id;
     }
             
 }

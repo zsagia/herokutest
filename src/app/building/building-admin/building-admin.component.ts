@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { Building } from '../building';
 import { BuildingServiceBase } from '../building-service/building.service.base';
 import { BuildingDetailsComponent } from '../building-details/building-details.component';
@@ -15,7 +17,10 @@ export class BuildingAdminComponent implements OnInit {
     buildings: Building[]
     selectedBuilding: Building
 
-    constructor(private buildingService: BuildingServiceBase) { }
+    constructor(
+        private buildingService: BuildingServiceBase,
+        private notificationsService: NotificationsService) {
+    }
 
     ngOnInit() {
         this.buildingService
@@ -60,12 +65,16 @@ export class BuildingAdminComponent implements OnInit {
             this.selectBuilding(null);
         }
 
+        this.notificationsService.info('Success', 'Building is deleted.' );
+
         return this.buildings;
     }
 
     addBuilding = (building: Building) => {
         this.buildings.push(building);
         this.selectBuilding(building);
+
+        this.notificationsService.info('Success', building.name + ' is added.' );
 
         return this.buildings;
     }
@@ -78,6 +87,16 @@ export class BuildingAdminComponent implements OnInit {
             this.selectBuilding(building);
         }
 
+        this.notificationsService.info('Success', building.name + ' is updated.' );
+
         return this.buildings;
+    }
+
+    updateDefaultImage = (building: Building, response: string, status: number) => {
+        let image = JSON.parse(response);
+
+        building.defaultImage = image.public_id;
+
+        this.notificationsService.info('Success', 'The new default image name is ' + image.original_filename );
     }
 }
