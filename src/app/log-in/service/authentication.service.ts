@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 
+import { AuthConfigConsts } from 'angular2-jwt';
+
 @Injectable()
 export class AuthenticationService {
     constructor(private http: Http) { }
@@ -18,14 +20,14 @@ export class AuthenticationService {
                 }
 
                  if (data && data.token) {
-                     localStorage.setItem('id_token', JSON.stringify(data.token));
+                     localStorage.setItem(AuthConfigConsts.DEFAULT_TOKEN_NAME, JSON.stringify(data.token));
                 }
             });
     }
 
-    logout() {
+    clearUser() {
         localStorage.removeItem('currentUser');
-        localStorage.removeItem('id_token');
+        localStorage.removeItem(AuthConfigConsts.DEFAULT_TOKEN_NAME);
     }
 }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
+import { AuthenticationService } from './log-in/service/authentication.service';
 
 import { PermissionChecker } from './permission-checker/permission.checker';
 
@@ -18,11 +19,16 @@ export class AppComponent {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private authenticationService: AuthenticationService,
         private notificationsService: NotificationsService) {
     }
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        if (!PermissionChecker.isAdmin() || !PermissionChecker.isLoggedIn()) {
+            this.clearUser();
+        }
     }
 
     isAdmin(): boolean {
@@ -33,9 +39,12 @@ export class AppComponent {
         return PermissionChecker.isLoggedIn();
     }
 
+    private clearUser(): void {
+        this.authenticationService.clearUser();
+    }
+
     signOut(): void {
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('id_token');
+        this.clearUser();
 
         this.router.navigate([this.returnUrl]);
 
